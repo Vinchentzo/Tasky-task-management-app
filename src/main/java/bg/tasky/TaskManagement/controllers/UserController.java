@@ -1,10 +1,9 @@
 package bg.tasky.TaskManagement.controllers;
 
+import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,16 +16,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/allUsers")
+    @GetMapping("/users")
     public List<UserEntity> fetchUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/user_{id}")
+    @GetMapping("/user/{id}")
     public UserEntity getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-
+    @PostMapping("/create/user")
+    public UserEntity createUser(@RequestBody UserDto user){
+        return userService.createUser(user);
+    }
 
 }

@@ -12,5 +12,5 @@ public interface UserMapper {
     @Mapping(target = "firstName", source = "dto.firstName")
     @Mapping(target = "lastName", source = "dto.lastName")
     @Mapping(target = "username", source = "dto.username")
-    UserEntity convertDtoToEntity(UserDto dto, Long id); //remove id
+    UserEntity convertDtoToEntity(UserDto dto);
 }
