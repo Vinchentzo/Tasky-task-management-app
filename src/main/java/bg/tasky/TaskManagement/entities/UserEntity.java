@@ -17,7 +17,7 @@ public class UserEntity {
     private String lastName;
 
     @Column(name = "username")
-    private Integer username;
+    private String username;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    public Integer getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(Integer username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 }
