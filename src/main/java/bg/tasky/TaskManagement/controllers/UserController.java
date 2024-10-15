@@ -3,6 +3,7 @@ package bg.tasky.TaskManagement.controllers;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,8 +17,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/fetch/users")
+    @GetMapping("/allUsers")
     public List<UserEntity> fetchUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/user_{id}")
+    public UserEntity getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+
+
 }

@@ -18,4 +18,8 @@ public class UserService {
     public List<UserEntity> getAllUsers() {
         return userRepo.findAll();
     }
+
+    public UserEntity getUserById(Long id) {
+        return userRepo.findUserById(id);
+    }
 }
