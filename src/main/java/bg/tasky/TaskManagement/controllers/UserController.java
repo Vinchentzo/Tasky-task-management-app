@@ -3,6 +3,7 @@ package bg.tasky.TaskManagement.controllers;
 import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,18 +18,24 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<UserEntity> fetchUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserEntity>> fetchUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/user/{id}")
-    public UserEntity getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping("/create/user")
-    public UserEntity createUser(@RequestBody UserDto user){
-        return userService.createUser(user);
+    @PostMapping("/user/create")
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserDto user){
+        return ResponseEntity.ok(userService.createUser(user));
+    }
+
+    @DeleteMapping("/user/delete")
+    public Long deleteUser(@RequestParam String username){
+        return userService.deleteUser(username);
+
     }
 
 }

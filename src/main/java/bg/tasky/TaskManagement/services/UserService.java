@@ -4,6 +4,7 @@ import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.mappers.UserMapper;
 import bg.tasky.TaskManagement.repositories.UserRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +33,10 @@ public class UserService {
 
         return userRepo.save(userEnt);
     }
+
+    @Transactional
+    public Long deleteUser(String username) {
+        return userRepo.deleteUserByUsername(username);
+    }
+
 }

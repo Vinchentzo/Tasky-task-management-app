@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, Long> {
 
-    UserEntity findUserById(Long id);
+    public UserEntity findUserById(Long id);
+    public Long deleteUserByUsername(String username);
 }
 
