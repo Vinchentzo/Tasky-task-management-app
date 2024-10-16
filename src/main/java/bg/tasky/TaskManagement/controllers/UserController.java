@@ -38,4 +38,9 @@ public class UserController {
 
     }
 
+    @PatchMapping("user/update")
+    public ResponseEntity<UserEntity> updateUser(@RequestParam String username, @RequestBody UserDto user){
+        return ResponseEntity.ok(userService.updateUser(username, user));
+    }
+
 }

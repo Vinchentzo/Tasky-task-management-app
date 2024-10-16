@@ -39,4 +39,19 @@ public class UserService {
         return userRepo.deleteUserByUsername(username);
     }
 
+    public UserEntity updateUser(String username, UserDto newUser) {
+        var oldUser = userRepo.getUserByUsername(username);
+
+        if (newUser.firstName() != null && !newUser.firstName().isEmpty()) {
+            oldUser.setFirstName(newUser.firstName());
+        }
+        if (newUser.lastName() != null && !newUser.lastName().isEmpty()) {
+            oldUser.setLastName(newUser.lastName());
+        }
+        if (newUser.username() != null && !newUser.username().isEmpty()) {
+            oldUser.setUsername(newUser.username());
+        }
+
+        return userRepo.save(oldUser);
+    }
 }
