@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public UserEntity updateUser(String username, UserDto newUser) {
-        var oldUser = userRepo.getUserByUsername(username);
+        var oldUser = userRepo.findUserByUsername(username);
 
         if (newUser.firstName() != null && !newUser.firstName().isEmpty()) {
             oldUser.setFirstName(newUser.firstName());
@@ -50,6 +50,9 @@ public class UserService {
         }
         if (newUser.username() != null && !newUser.username().isEmpty()) {
             oldUser.setUsername(newUser.username());
+        }
+        if (newUser.password() != null && !newUser.password().isEmpty()) {
+            oldUser.setPassword(newUser.password());
         }
 
         return userRepo.save(oldUser);
