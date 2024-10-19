@@ -3,6 +3,7 @@ package bg.tasky.TaskManagement.controllers;
 import bg.tasky.TaskManagement.dtos.LoginResponseDto;
 import bg.tasky.TaskManagement.dtos.LoginUserDto;
 import bg.tasky.TaskManagement.dtos.RegisterUserDto;
+import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.services.AuthenticationService;
 import bg.tasky.TaskManagement.services.JwtService;
@@ -25,8 +26,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> register(@RequestBody RegisterUserDto registerUserDto) {
-        UserEntity registeredUser = authenticationService.signup(registerUserDto);
+    public ResponseEntity<UserDto> register(@RequestBody RegisterUserDto registerUserDto) {
+        UserDto registeredUser = authenticationService.signup(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);
     }

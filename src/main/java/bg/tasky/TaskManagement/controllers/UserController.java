@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/user")
 @RestController
 public class UserController {
 
@@ -19,17 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<UserDto>> fetchUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+//        return ResponseEntity.ok(userService.getUserById(id));
+//    }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
-    }
-
-    @GetMapping("/user/me")
+    @GetMapping("/me")
     public ResponseEntity<UserEntity> authenticatedUser() { //change to userDto
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -38,25 +34,22 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @GetMapping("/users/all")
+    @GetMapping("/all")
     public ResponseEntity<List<UserDto>> allUsers() {
-        List <UserDto> users = userService.getAllUsers();
-
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @PostMapping("/user/create")
+    @PostMapping("/create")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
         return ResponseEntity.ok(userService.createUser(user));
     }
 
-    @DeleteMapping("/user/delete")
+    @DeleteMapping("/delete")
     public Long deleteUser(@RequestParam String username){
         return userService.deleteUser(username);
-
     }
 
-    @PatchMapping("user/update")
+    @PatchMapping("/update")
     public ResponseEntity<UserDto> updateUser(@RequestParam String username, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(username, user));
     }
