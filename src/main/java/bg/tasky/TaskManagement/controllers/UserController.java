@@ -18,17 +18,17 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserEntity>> fetchUsers() {
+    public ResponseEntity<List<UserDto>> fetchUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping("/user/create")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserDto user){
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
         return ResponseEntity.ok(userService.createUser(user));
     }
 
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PatchMapping("user/update")
-    public ResponseEntity<UserEntity> updateUser(@RequestParam String username, @RequestBody UserDto user){
+    public ResponseEntity<UserDto> updateUser(@RequestParam String username, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(username, user));
     }
 

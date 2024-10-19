@@ -20,18 +20,23 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<UserEntity> getAllUsers() {
-        return userRepo.findAll();
+    public List<UserDto> getAllUsers() {
+        return userRepo.findAll()
+                .stream()
+                .map(userMapper::convertEntityToDto)
+                .toList();
     }
 
-    public UserEntity getUserById(Long id) {
-        return userRepo.findUserById(id);
+    public UserDto getUserById(Long id) {
+        return userMapper.convertEntityToDto(userRepo.findUserById(id));
     }
 
-    public UserEntity createUser(UserDto user) {
+    public UserDto createUser(UserDto user) {
         var userEnt = userMapper.convertDtoToEntity(user);
 
-        return userRepo.save(userEnt);
+        userRepo.save(userEnt);
+
+        return user;
     }
 
     @Transactional
@@ -39,7 +44,7 @@ public class UserService {
         return userRepo.deleteUserByUsername(username);
     }
 
-    public UserEntity updateUser(String username, UserDto newUser) {
+    public UserDto updateUser(String username, UserDto newUser) {
         var oldUser = userRepo.findUserByUsername(username);
 
         if (newUser.firstName() != null && !newUser.firstName().isEmpty()) {
@@ -55,6 +60,8 @@ public class UserService {
             oldUser.setPassword(newUser.password());
         }
 
-        return userRepo.save(oldUser);
+        userRepo.save(oldUser);
+
+        return userMapper.convertEntityToDto(oldUser);
     }
 }

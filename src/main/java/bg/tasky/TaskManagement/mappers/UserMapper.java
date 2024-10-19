@@ -14,4 +14,10 @@ public interface UserMapper {
     @Mapping(target = "username", source = "dto.username")
     @Mapping(target = "password", source = "dto.password")
     UserEntity convertDtoToEntity(UserDto dto);
+
+    @Mapping(target = "firstName", source = "entity.firstName")
+    @Mapping(target = "lastName", source = "entity.lastName")
+    @Mapping(target = "username", source = "entity.username")
+    @Mapping(target = "password", source = "entity.password")
+    UserDto convertEntityToDto(UserEntity entity);
 }
