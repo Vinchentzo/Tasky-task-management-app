@@ -5,6 +5,8 @@ import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.mappers.UserMapper;
 import bg.tasky.TaskManagement.repositories.UserRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,14 @@ public class UserService {
     public UserService(UserRepo userRepo, UserMapper userMapper) {
         this.userRepo = userRepo;
         this.userMapper = userMapper;
+    }
+
+    public UserDto getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+
+        return userMapper.convertEntityToDto(currentUser);
     }
 
     public List<UserDto> getAllUsers() {
