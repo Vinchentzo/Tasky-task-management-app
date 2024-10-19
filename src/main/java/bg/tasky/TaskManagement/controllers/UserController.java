@@ -4,6 +4,8 @@ import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.services.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +27,22 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @GetMapping("/user/me")
+    public ResponseEntity<UserEntity> authenticatedUser() { //change to userDto
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+
+        return ResponseEntity.ok(currentUser);
+    }
+
+    @GetMapping("/users/all")
+    public ResponseEntity<List<UserDto>> allUsers() {
+        List <UserDto> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/user/create")
