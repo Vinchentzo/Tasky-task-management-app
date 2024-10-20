@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +29,12 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_boards",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "board_id"))
+    private Set<BoardEntity> boards;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/user")
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -46,7 +46,7 @@ public class UserController {
         return userService.deleteUser(username);
     }
 
-    @PatchMapping("/update")
+    @PatchMapping("/update") //update na parolata ne raboti pravilno
     public ResponseEntity<UserDto> updateUser(@RequestParam String username, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(username, user));
     }

@@ -1,10 +1,13 @@
 package bg.tasky.TaskManagement.dtos;
 
+import java.util.Set;
+
 public class RegisterUserDto {
     private String firstName;
     private String lastName;
     private String username;
     private String password;
+    private Set<BoardDto> boards;
 
 
     public void setUsername(String username) {
@@ -19,6 +22,9 @@ public class RegisterUserDto {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    public void setBoards(Set<BoardDto> boards) {
+        this.boards = boards;
+    }
 
     public String getUsername() {
         return username;
@@ -32,5 +38,7 @@ public class RegisterUserDto {
     public String getFirstName() {
         return firstName;
     }
-
+    public Set<BoardDto> getBoards() {
+        return boards;
+    }
 }

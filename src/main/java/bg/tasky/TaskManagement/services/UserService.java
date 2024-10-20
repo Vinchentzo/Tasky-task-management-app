@@ -70,6 +70,8 @@ public class UserService {
             oldUser.setPassword(newUser.password());
         }
 
+        //kvo staa kato update-vame tablicite
+
         userRepo.save(oldUser);
 
         return userMapper.convertEntityToDto(oldUser);

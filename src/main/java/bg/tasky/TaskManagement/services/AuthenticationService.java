@@ -39,6 +39,9 @@ public class AuthenticationService {
         user.setUsername(input.getUsername());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 
+        //kogato signupvash kvo staa s bordovete
+        //user.setBoards(input.getBoards());
+
         userRepository.save(user);
 
         return userMapper.convertEntityToDto(user);
