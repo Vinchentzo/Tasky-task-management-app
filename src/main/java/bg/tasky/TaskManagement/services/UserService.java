@@ -22,6 +22,15 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    public UserEntity getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (UserEntity) authentication.getPrincipal();
+    }
+
+    public UserEntity save(UserEntity user){
+        return userRepo.save(user);
+    }
+
     public UserDto getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

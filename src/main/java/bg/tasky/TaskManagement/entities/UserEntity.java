@@ -30,7 +30,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //po princip ot kym optimizaciq mai lazy e po dobre ama mislq che trqq se promenqt mnogo potoci na danni za da stane
     @JoinTable(name = "user_boards",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "board_id"))

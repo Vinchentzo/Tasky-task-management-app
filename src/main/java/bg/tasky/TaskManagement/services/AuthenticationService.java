@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class AuthenticationService {
     private final UserRepo userRepository;
@@ -38,7 +40,7 @@ public class AuthenticationService {
         user.setLastName(input.getLastName());
         user.setUsername(input.getUsername());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
-
+        user.setBoards(new HashSet<>());
         //kogato signupvash kvo staa s bordovete
         //user.setBoards(input.getBoards());
 
