@@ -20,6 +20,9 @@ public class BoardEntity {
     @Column(name = "key")
     private String key;
 
+    @ManyToMany(mappedBy = "boards")
+    private Set<UserEntity> users;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private Set<ListEntity> lists;
 }
