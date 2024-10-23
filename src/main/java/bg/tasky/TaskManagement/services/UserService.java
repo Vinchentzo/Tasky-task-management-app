@@ -24,8 +24,13 @@ public class UserService {
 
     public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (UserEntity) authentication.getPrincipal();
+        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+        return userRepo.findUserById(currentUser.getId());
     }
+
+//    public UserEntity mapDtoToEntity(UserDto user) {
+//        return userMapper.convertDtoToEntity(user);
+//    }
 
     public UserEntity save(UserEntity user){
         return userRepo.save(user);
@@ -46,8 +51,12 @@ public class UserService {
                 .toList();
     }
 
-    public UserDto getUserById(Long id) {
-        return userMapper.convertEntityToDto(userRepo.findUserById(id));
+    public List<UserEntity> getAllUsersAsEntities() {
+        return userRepo.findAll();
+    }
+
+    public UserEntity getUserById(Long id) {
+        return userRepo.findUserById(id);
     }
 
     public UserDto createUser(UserDto user) {
@@ -85,4 +94,6 @@ public class UserService {
 
         return userMapper.convertEntityToDto(oldUser);
     }
+
+
 }
