@@ -7,6 +7,8 @@ import bg.tasky.TaskManagement.mappers.ListMapper;
 import bg.tasky.TaskManagement.repositories.ListRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ListService {
     private final ListRepo listRepo;
@@ -36,6 +38,31 @@ public class ListService {
 //        board.getLists().add(listEntity);
 //        boardService.save(board);
 
+        return listMapper.convertEntityToDto(listEntity);
+    }
+
+    public ListDto getListByTitle(String boardKey, String title) {
+        return listMapper.convertEntityToDto(listRepo.findByTitleAndBoardKey(title, boardKey));
+    }
+
+
+    public List<ListDto> getListsByBoard(String boardKey) {
+        List<ListEntity> listEntities = listRepo.findAllByBoardKey(boardKey);
+        return listEntities.stream()
+                .map(listMapper::convertEntityToDto)
+                .toList();
+    }
+
+    public ListDto updateListTitle(String boardKey, String oldTitle, String newTitle){
+        ListEntity listEntity = listRepo.findByTitleAndBoardKey(oldTitle, boardKey);
+        listEntity.setTitle(newTitle);
+        listEntity = listRepo.save(listEntity);
+        return listMapper.convertEntityToDto(listEntity);
+    }
+
+    public ListDto deleteList(String boardKey, String title) {
+        ListEntity listEntity = listRepo.findByTitleAndBoardKey(title, boardKey);
+        listRepo.delete(listEntity);
         return listMapper.convertEntityToDto(listEntity);
     }
 }
