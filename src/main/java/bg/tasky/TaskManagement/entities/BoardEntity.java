@@ -26,6 +26,6 @@ public class BoardEntity {
 //    private Set<UserEntity> users;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    @JsonIgnore
+//    @JsonIgnore
     private Set<ListEntity> lists;
 }

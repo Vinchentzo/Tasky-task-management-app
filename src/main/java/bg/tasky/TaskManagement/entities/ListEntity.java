@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Entity
-@Table(name = "lists")
+@Table(name = "lists", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "board_id"}))
 @Data
 public class ListEntity {
 

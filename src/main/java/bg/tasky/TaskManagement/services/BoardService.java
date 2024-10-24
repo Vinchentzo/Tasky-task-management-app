@@ -12,6 +12,7 @@ import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -33,6 +34,7 @@ public class BoardService {
 
         BoardEntity boardEntity = boardMapper.convertDtoToEntity(boardDto);
         boardEntity.setKey(UUID.randomUUID().toString().replace("-", ""));
+        boardEntity.setLists(new HashSet<>());
 
         UserEntity currentUser = userService.getCurrentUser();
 
@@ -79,6 +81,13 @@ public class BoardService {
         }
 
         return boardMapper.convertEntityToDto(boardEntity);
+    }
+
+    public BoardEntity getBoardEntityByKey(String key) {
+        BoardEntity boardEntity = boardRepo.findByKey(key)
+                .orElseThrow(() -> new RuntimeException("Board not found with key: " + key));
+
+        return boardEntity;
     }
 
 
@@ -131,5 +140,9 @@ public class BoardService {
         }
 
         return boardMapper.convertEntityToDto(boardEntity);
+    }
+
+    public BoardEntity save(BoardEntity board) {
+        return boardRepo.save(board);
     }
 }
