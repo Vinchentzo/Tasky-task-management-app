@@ -7,6 +7,7 @@ import bg.tasky.TaskManagement.mappers.ListMapper;
 import bg.tasky.TaskManagement.repositories.ListRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class ListService {
         }
 
         listEntity.setBoard(board);
+        listEntity.setCards(new HashSet<>());
         listEntity = listRepo.save(listEntity);
 
 //        board.getLists().add(listEntity);
@@ -64,5 +66,9 @@ public class ListService {
         ListEntity listEntity = listRepo.findByTitleAndBoardKey(title, boardKey);
         listRepo.delete(listEntity);
         return listMapper.convertEntityToDto(listEntity);
+    }
+
+    public ListEntity getListEntityByTitle(String boardKey, String listTitle) {
+        return listRepo.findByTitleAndBoardKey(listTitle, boardKey);
     }
 }
