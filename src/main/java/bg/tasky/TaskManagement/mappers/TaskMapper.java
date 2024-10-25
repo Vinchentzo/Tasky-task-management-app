@@ -11,11 +11,11 @@ public interface TaskMapper {
 
     @Mapping(target = "title", source = "dto.title")
     @Mapping(target = "completed", source = "dto.completed")
-    @Mapping(target = "card", source = "dto.card")
+//    @Mapping(target = "card", source = "dto.card")
     TaskEntity convertDtoToEntity(TaskDto dto);
 
     @Mapping(target = "title", source = "entity.title")
     @Mapping(target = "completed", source = "entity.completed")
-    @Mapping(target = "card", source = "entity.card")
+//    @Mapping(target = "card", source = "entity.card")
     TaskDto convertEntityToDto(TaskEntity entity);
 }

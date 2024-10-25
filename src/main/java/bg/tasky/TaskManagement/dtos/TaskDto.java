@@ -1,4 +1,4 @@
 package bg.tasky.TaskManagement.dtos;
 
-public record TaskDto(String title, boolean completed, CardDto card) {
+public record TaskDto(String title, Boolean completed) {
 }

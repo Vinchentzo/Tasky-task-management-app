@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "tasks", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "card_id"}))
 @Data
 public class TaskEntity {
     @Id
@@ -15,7 +15,7 @@ public class TaskEntity {
     private String title;
 
     @Column(name = "completed")
-    private boolean completed;
+    private Boolean completed;
 
     @ManyToOne
     @JoinColumn(name = "card_id")

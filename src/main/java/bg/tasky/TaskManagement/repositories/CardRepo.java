@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CardRepo extends JpaRepository<CardEntity, Long> {
-    public boolean existsByTitleAndList(String listTitle, ListEntity listEntity);
+    public boolean existsByTitleAndList(String cardTitle, ListEntity listEntity);
 
     public CardEntity findByTitleAndList(String cardTitle, ListEntity listEntity);
 

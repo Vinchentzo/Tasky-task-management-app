@@ -50,6 +50,14 @@ public class CardService {
         return cardMapper.convertEntityToDto(cardEntity);
     }
 
+    public CardEntity getCardEntityByTitle(String boardKey, String listTitle, String cardTitle) {
+        ListEntity listEntity = listService.getListEntityByTitle(boardKey, listTitle);
+
+        CardEntity cardEntity = cardRepo.findByTitleAndList(cardTitle, listEntity);
+
+        return cardEntity;
+    }
+
 
     public List<CardDto> getCardsByList(String boardKey, String listTitle) {
         ListEntity listEntity = listService.getListEntityByTitle(boardKey, listTitle);
