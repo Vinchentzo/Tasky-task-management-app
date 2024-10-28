@@ -7,6 +7,7 @@ import bg.tasky.TaskManagement.repositories.UserRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,12 @@ public class UserService {
 
     private final UserRepo userRepo;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, UserMapper userMapper) {
+    public UserService(UserRepo userRepo, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserEntity getCurrentUser() {
@@ -85,10 +88,8 @@ public class UserService {
             oldUser.setUsername(newUser.username());
         }
         if (newUser.password() != null && !newUser.password().isEmpty()) {
-            oldUser.setPassword(newUser.password());
+            oldUser.setPassword(passwordEncoder.encode(newUser.password()));
         }
-
-        //kvo staa kato update-vame tablicite
 
         userRepo.save(oldUser);
 

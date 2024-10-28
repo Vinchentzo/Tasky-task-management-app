@@ -31,22 +31,22 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<UserDto>> allUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
+//    @GetMapping("/all")
+//    public ResponseEntity<List<UserDto>> allUsers() {
+//        return ResponseEntity.ok(userService.getAllUsers());
+//    }
 
-    @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
-        return ResponseEntity.ok(userService.createUser(user));
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+//        return ResponseEntity.ok(userService.createUser(user));
+//    }
 
     @DeleteMapping("/delete")
     public Long deleteUser(@RequestParam String username){
         return userService.deleteUser(username);
     }
 
-    @PatchMapping("/update") //update na parolata ne raboti pravilno
+    @PatchMapping("/update")
     public ResponseEntity<UserDto> updateUser(@RequestParam String username, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(username, user));
     }
