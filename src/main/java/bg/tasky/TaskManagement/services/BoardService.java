@@ -1,15 +1,13 @@
 package bg.tasky.TaskManagement.services;
 
 import bg.tasky.TaskManagement.dtos.BoardDto;
-import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.entities.BoardEntity;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.mappers.BoardMapper;
 import bg.tasky.TaskManagement.mappers.UserMapper;
 import bg.tasky.TaskManagement.repositories.BoardRepo;
+import bg.tasky.TaskManagement.repositories.ListRepo;
 import bg.tasky.TaskManagement.repositories.UserRepo;
-import org.apache.catalina.User;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,7 +22,7 @@ public class BoardService {
     private final BoardMapper boardMapper;
     private final UserService userService;
 
-    public BoardService(BoardRepo boardRepo, BoardMapper boardMapper, UserService userService, UserRepo userRepo, UserMapper userMapper) {
+    public BoardService(BoardRepo boardRepo, BoardMapper boardMapper, UserService userService) {
         this.boardRepo = boardRepo;
         this.boardMapper = boardMapper;
         this.userService = userService;

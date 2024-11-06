@@ -18,7 +18,7 @@ public class BoardEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "key", unique = true)
+    @Column(name = "board_key", unique = true)
     private String key;
 
 //    @ManyToMany(mappedBy = "boards")
