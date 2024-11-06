@@ -2,7 +2,6 @@ package bg.tasky.TaskManagement.services;
 
 import bg.tasky.TaskManagement.dtos.TaskDto;
 import bg.tasky.TaskManagement.entities.CardEntity;
-import bg.tasky.TaskManagement.entities.ListEntity;
 import bg.tasky.TaskManagement.entities.TaskEntity;
 import bg.tasky.TaskManagement.mappers.TaskMapper;
 import bg.tasky.TaskManagement.repositories.TaskRepo;
@@ -65,8 +64,6 @@ public class TaskService {
         if (newEntity.getTitle() != null && !newEntity.getTitle().isEmpty()) {
             taskEntity.setTitle(newEntity.getTitle());
         }
-        //if (newEntity.isCompleted() != null && !newEntity.isCompleted().isEmpty()) {
-        //if (newEntity.isCompleted() != taskEntity.isCompleted()){
         if (newEntity.getCompleted() != null) {
             taskEntity.setCompleted(newEntity.getCompleted());
         }

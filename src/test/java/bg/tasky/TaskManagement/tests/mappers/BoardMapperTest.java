@@ -29,15 +29,15 @@ class BoardMapperTest {
         return Stream.of(
                 Arguments.of(
                         new BoardDto("Project Alpha", "PA123"),
-                        new String[]{"id", "users", "lists"}  // Allow these fields to be null
+                        new String[]{"id", "users", "lists"}
                 ),
                 Arguments.of(
                         new BoardDto(null, "BK456"),
-                        new String[]{"title", "id", "users", "lists"}  // Allow title and other fields to be null
+                        new String[]{"title", "id", "users", "lists"}
                 ),
                 Arguments.of(
                         new BoardDto("Task Board", null),
-                        new String[]{"key", "id", "users", "lists"}  // Allow key and other fields to be null
+                        new String[]{"key", "id", "users", "lists"}
                 )
         );
     }

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Sql({
-        "/sql/list_data.sql"  // SQL script to pre-load data for ListEntity
+        "/sql/list_data.sql"
 })
 class ListRepoTest {
 
@@ -49,6 +49,6 @@ class ListRepoTest {
         List<ListEntity> lists = listRepo.findAllByBoardKey(boardKey);
 
         assertThat(lists).isNotEmpty();
-        assertThat(lists).hasSize(2);  // Adjust based on the test data
+        assertThat(lists).hasSize(2);
     }
 }

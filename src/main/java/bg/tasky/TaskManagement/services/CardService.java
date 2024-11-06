@@ -1,11 +1,12 @@
 package bg.tasky.TaskManagement.services;
 
 import bg.tasky.TaskManagement.dtos.CardDto;
-import bg.tasky.TaskManagement.entities.BoardEntity;
 import bg.tasky.TaskManagement.entities.CardEntity;
 import bg.tasky.TaskManagement.entities.ListEntity;
+import bg.tasky.TaskManagement.entities.TaskEntity;
 import bg.tasky.TaskManagement.mappers.CardMapper;
 import bg.tasky.TaskManagement.repositories.CardRepo;
+import bg.tasky.TaskManagement.repositories.TaskRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -17,11 +18,13 @@ public class CardService {
     private final CardRepo cardRepo;
     private final CardMapper cardMapper;
     private final ListService listService;
+    private final TaskRepo taskRepo;
 
-    public CardService(CardRepo cardRepo, CardMapper cardMapper, ListService listService) {
+    public CardService(CardRepo cardRepo, CardMapper cardMapper, ListService listService, TaskRepo taskRepo) {
         this.cardRepo = cardRepo;
         this.cardMapper = cardMapper;
         this.listService = listService;
+        this.taskRepo = taskRepo;
     }
 
     public CardDto createCard(String listTitle, String boardKey, CardDto cardDto) {
@@ -88,6 +91,13 @@ public class CardService {
     public CardDto deleteCard(String boardKey, String listTitle, String cardTitle) {
         ListEntity listEntity = listService.getListEntityByTitle(boardKey, listTitle);
         CardEntity cardEntity = cardRepo.findByTitleAndList(cardTitle, listEntity);
+
+        List<TaskEntity> tasks = taskRepo.findAllByCard(cardEntity);
+        for (TaskEntity task : tasks) {
+            task.setCard(null);
+            taskRepo.delete(task);
+        }
+
         cardRepo.delete(cardEntity);
         return cardMapper.convertEntityToDto(cardEntity);
     }

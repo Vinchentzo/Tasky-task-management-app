@@ -31,10 +31,6 @@ public class UserService {
         return userRepo.findUserById(currentUser.getId());
     }
 
-//    public UserEntity mapDtoToEntity(UserDto user) {
-//        return userMapper.convertDtoToEntity(user);
-//    }
-
     public UserEntity save(UserEntity user){
         return userRepo.save(user);
     }

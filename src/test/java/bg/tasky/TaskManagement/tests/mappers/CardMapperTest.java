@@ -16,7 +16,6 @@ class CardMapperTest {
 
     private final CardMapper underTest = Mappers.getMapper(CardMapper.class);
 
-    // Test for DTO to Entity conversion
     @ParameterizedTest
     @MethodSource("dtoToEntityParamProvider")
     void convertDtoToEntityTest(CardDto dto, String[] emptyFields) {
@@ -26,7 +25,6 @@ class CardMapperTest {
                 .hasNoNullFieldsOrPropertiesExcept(emptyFields);
     }
 
-    // Test for Entity to DTO conversion
     @ParameterizedTest
     @MethodSource("entityToDtoParamProvider")
     void convertEntityToDtoTest(CardEntity entity, String[] emptyFields) {
@@ -40,11 +38,11 @@ class CardMapperTest {
         return Stream.of(
                 Arguments.of(
                         new CardDto("Feature Task", "Implement new feature"),
-                        new String[]{"id", "list", "tasks"}  // Allow these fields to be null in Entity
+                        new String[]{"id", "list", "tasks"}
                 ),
                 Arguments.of(
                         new CardDto(null, null),
-                        new String[]{"title", "description", "id", "list", "tasks"}  // Allow all fields to be null
+                        new String[]{"title", "description", "id", "list", "tasks"}
                 )
         );
     }
@@ -53,11 +51,11 @@ class CardMapperTest {
         return Stream.of(
                 Arguments.of(
                         createEntity("Bug Fix", "Resolve critical bug"),
-                        new String[]{"list", "tasks"}  // Allow these fields to be null in DTO
+                        new String[]{"list", "tasks"}
                 ),
                 Arguments.of(
                         createEntity(null, null),
-                        new String[]{"title", "description", "list", "tasks"}  // Allow title and description to be null
+                        new String[]{"title", "description", "list", "tasks"}
                 )
         );
     }

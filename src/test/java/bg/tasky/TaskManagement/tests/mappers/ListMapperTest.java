@@ -16,7 +16,6 @@ class ListMapperTest {
 
     private final ListMapper underTest = Mappers.getMapper(ListMapper.class);
 
-    // Test for DTO to Entity conversion
     @ParameterizedTest
     @MethodSource("dtoToEntityParamProvider")
     void convertDtoToEntityTest(ListDto dto, String[] emptyFields) {
@@ -26,7 +25,6 @@ class ListMapperTest {
                 .hasNoNullFieldsOrPropertiesExcept(emptyFields);
     }
 
-    // Test for Entity to DTO conversion
     @ParameterizedTest
     @MethodSource("entityToDtoParamProvider")
     void convertEntityToDtoTest(ListEntity entity, String[] emptyFields) {
@@ -40,11 +38,11 @@ class ListMapperTest {
         return Stream.of(
                 Arguments.of(
                         new ListDto("To-Do"),
-                        new String[]{"id", "board", "cards"}  // Allow these fields to be null
+                        new String[]{"id", "board", "cards"}
                 ),
                 Arguments.of(
                         new ListDto(null),
-                        new String[]{"title", "id", "board", "cards"}  // Allow title and other fields to be null
+                        new String[]{"title", "id", "board", "cards"}
                 )
         );
     }
@@ -53,11 +51,11 @@ class ListMapperTest {
         return Stream.of(
                 Arguments.of(
                         createEntity("In Progress"),
-                        new String[]{"board", "cards"}  // Allow these fields to be null in DTO
+                        new String[]{"board", "cards"}
                 ),
                 Arguments.of(
                         createEntity(null),
-                        new String[]{"title", "board", "cards"}  // Allow title and other fields to be null in DTO
+                        new String[]{"title", "board", "cards"}
                 )
         );
     }

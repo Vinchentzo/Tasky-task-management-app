@@ -2,12 +2,11 @@ package bg.tasky.TaskManagement.services;
 
 import bg.tasky.TaskManagement.dtos.BoardDto;
 import bg.tasky.TaskManagement.entities.BoardEntity;
+import bg.tasky.TaskManagement.entities.ListEntity;
 import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.mappers.BoardMapper;
-import bg.tasky.TaskManagement.mappers.UserMapper;
 import bg.tasky.TaskManagement.repositories.BoardRepo;
 import bg.tasky.TaskManagement.repositories.ListRepo;
-import bg.tasky.TaskManagement.repositories.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -21,11 +20,13 @@ public class BoardService {
     private final BoardRepo boardRepo;
     private final BoardMapper boardMapper;
     private final UserService userService;
+    private final ListRepo listRepo;
 
-    public BoardService(BoardRepo boardRepo, BoardMapper boardMapper, UserService userService) {
+    public BoardService(BoardRepo boardRepo, BoardMapper boardMapper, UserService userService, ListRepo listRepo) {
         this.boardRepo = boardRepo;
         this.boardMapper = boardMapper;
         this.userService = userService;
+        this.listRepo = listRepo;
     }
 
     public BoardDto createBoard(BoardDto boardDto) {
@@ -72,10 +73,9 @@ public class BoardService {
         BoardEntity boardEntity = boardRepo.findByKey(key)
                 .orElseThrow(() -> new RuntimeException("Board not found with key: " + key));
 
-        // Check if the current user already has this board
         if (!currentUser.getBoards().contains(boardEntity)) {
             currentUser.getBoards().add(boardEntity);
-            userService.save(currentUser); // Save the updated user entity
+            userService.save(currentUser);
         }
 
         return boardMapper.convertEntityToDto(boardEntity);
@@ -102,18 +102,23 @@ public class BoardService {
         return boardMapper.convertEntityToDto(updatedBoard);
     }
 
-
     public BoardDto deleteBoard(BoardDto boardDto) {
         BoardEntity boardEntity = boardMapper.convertDtoToEntity(boardDto);
         boardEntity = boardRepo.findByKey(boardEntity.getKey())
                 .orElseThrow(() -> new RuntimeException("Board not found with this key!"));
 
+        List<ListEntity> lists = listRepo.findAllByBoardKey(boardEntity.getKey());
+        for (ListEntity list : lists) {
+            list.setBoard(null);
+            listRepo.delete(list);
+        }
+
         List<UserEntity> users = userService.getAllUsersAsEntities();
 
         for (UserEntity user : users) {
             if (user.getBoards().contains(boardEntity)) {
-                user.getBoards().remove(boardEntity); // Remove the board from the user's set of boards
-                userService.save(user);      // Save the updated user back to the database
+                user.getBoards().remove(boardEntity);
+                userService.save(user);
             }
         }
 
@@ -134,7 +139,7 @@ public class BoardService {
 
         if (currentUser.getBoards().contains(boardEntity)) {
             currentUser.getBoards().remove(boardEntity);
-            userService.save(currentUser); // Save the updated user entity
+            userService.save(currentUser);
         }
 
         return boardMapper.convertEntityToDto(boardEntity);

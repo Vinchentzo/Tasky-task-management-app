@@ -1,7 +1,6 @@
 package bg.tasky.TaskManagement.controllers;
 
 import bg.tasky.TaskManagement.dtos.ListDto;
-import bg.tasky.TaskManagement.dtos.UserDto;
 import bg.tasky.TaskManagement.services.ListService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

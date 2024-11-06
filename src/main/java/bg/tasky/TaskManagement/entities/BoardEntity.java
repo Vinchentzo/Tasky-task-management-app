@@ -1,6 +1,5 @@
 package bg.tasky.TaskManagement.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,11 +20,6 @@ public class BoardEntity {
     @Column(name = "board_key", unique = true)
     private String key;
 
-//    @ManyToMany(mappedBy = "boards")
-//    @JsonIgnore
-//    private Set<UserEntity> users;
-
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-//    @JsonIgnore
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ListEntity> lists;
 }

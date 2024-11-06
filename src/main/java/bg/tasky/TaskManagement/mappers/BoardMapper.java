@@ -12,14 +12,10 @@ public interface BoardMapper {
 
     @Mapping(target = "title", source = "dto.title")
     @Mapping(target = "key", source = "dto.key")
-    //@Mapping(target = "users", source = "dto.users")
-//    @Mapping(target = "lists", source = "dto.lists")
     BoardEntity convertDtoToEntity(BoardDto dto);
 
     @Mapping(target = "title", source = "entity.title")
     @Mapping(target = "key", source = "entity.key")
-    //@Mapping(target = "users", source = "entity.users")
-//    @Mapping(target = "lists", source = "entity.lists")
     BoardDto convertEntityToDto(BoardEntity entity);
 }
 

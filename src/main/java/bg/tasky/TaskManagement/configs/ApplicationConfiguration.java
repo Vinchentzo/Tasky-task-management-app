@@ -1,6 +1,5 @@
 package bg.tasky.TaskManagement.configs;
 
-import bg.tasky.TaskManagement.entities.UserEntity;
 import bg.tasky.TaskManagement.repositories.UserRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

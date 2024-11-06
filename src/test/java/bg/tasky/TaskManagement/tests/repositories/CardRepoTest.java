@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Sql({
-        "/sql/card_data.sql"  // SQL script to pre-load data for CardEntity and ListEntity
+        "/sql/card_data.sql"
 })
 class CardRepoTest {
 
@@ -53,6 +53,6 @@ class CardRepoTest {
         List<CardEntity> cards = cardRepo.findAllByList(listEntity);
 
         assertThat(cards).isNotEmpty();
-        assertThat(cards).hasSize(2);  // Adjust based on the test data in card_data.sql
+        assertThat(cards).hasSize(2);
     }
 }

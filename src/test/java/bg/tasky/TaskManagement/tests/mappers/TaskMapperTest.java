@@ -16,7 +16,6 @@ class TaskMapperTest {
 
     private final TaskMapper underTest = Mappers.getMapper(TaskMapper.class);
 
-    // Test for DTO to Entity conversion
     @ParameterizedTest
     @MethodSource("dtoToEntityParamProvider")
     void convertDtoToEntityTest(TaskDto dto, String[] emptyFields) {
@@ -26,7 +25,6 @@ class TaskMapperTest {
                 .hasNoNullFieldsOrPropertiesExcept(emptyFields);
     }
 
-    // Test for Entity to DTO conversion
     @ParameterizedTest
     @MethodSource("entityToDtoParamProvider")
     void convertEntityToDtoTest(TaskEntity entity, String[] emptyFields) {
@@ -40,11 +38,11 @@ class TaskMapperTest {
         return Stream.of(
                 Arguments.of(
                         new TaskDto("Initial Setup", true),
-                        new String[]{"id", "card"}  // Allow these fields to be null in Entity
+                        new String[]{"id", "card"}
                 ),
                 Arguments.of(
                         new TaskDto(null, false),
-                        new String[]{"title", "completed", "id", "card"}  // Allow all fields to be null
+                        new String[]{"title", "completed", "id", "card"}
                 )
         );
     }
@@ -53,11 +51,11 @@ class TaskMapperTest {
         return Stream.of(
                 Arguments.of(
                         createEntity("Bug Investigation", false),
-                        new String[]{"card"}  // Allow these fields to be null in DTO
+                        new String[]{"card"}
                 ),
                 Arguments.of(
                         createEntity(null, true),
-                        new String[]{"title", "card"}  // Allow title and card to be null
+                        new String[]{"title", "card"}
                 )
         );
     }

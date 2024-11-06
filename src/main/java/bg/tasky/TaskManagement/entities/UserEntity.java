@@ -1,6 +1,5 @@
 package bg.tasky.TaskManagement.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +30,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY) //po princip ot kym optimizaciq mai lazy e po dobre ama mislq che trqq se promenqt mnogo potoci na danni za da stane
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_boards",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "board_id"))

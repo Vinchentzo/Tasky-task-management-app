@@ -2,8 +2,10 @@ package bg.tasky.TaskManagement.services;
 
 import bg.tasky.TaskManagement.dtos.ListDto;
 import bg.tasky.TaskManagement.entities.BoardEntity;
+import bg.tasky.TaskManagement.entities.CardEntity;
 import bg.tasky.TaskManagement.entities.ListEntity;
 import bg.tasky.TaskManagement.mappers.ListMapper;
+import bg.tasky.TaskManagement.repositories.CardRepo;
 import bg.tasky.TaskManagement.repositories.ListRepo;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,13 @@ public class ListService {
     private final ListRepo listRepo;
     private final ListMapper listMapper;
     private final BoardService boardService;
+    private final CardRepo cardRepo;
 
-    public ListService(ListRepo listRepo, ListMapper listMapper, BoardService boardService) {
+    public ListService(ListRepo listRepo, ListMapper listMapper, BoardService boardService, CardRepo cardRepo) {
         this.listRepo = listRepo;
         this.listMapper = listMapper;
         this.boardService = boardService;
+        this.cardRepo = cardRepo;
     }
 
     public ListDto createList(String boardKey, ListDto listDto) {
@@ -36,9 +40,6 @@ public class ListService {
         listEntity.setBoard(board);
         listEntity.setCards(new HashSet<>());
         listEntity = listRepo.save(listEntity);
-
-//        board.getLists().add(listEntity);
-//        boardService.save(board);
 
         return listMapper.convertEntityToDto(listEntity);
     }
@@ -64,6 +65,13 @@ public class ListService {
 
     public ListDto deleteList(String boardKey, String title) {
         ListEntity listEntity = listRepo.findByTitleAndBoardKey(title, boardKey);
+
+        List<CardEntity> cards = cardRepo.findAllByList(listEntity);
+        for (CardEntity card : cards) {
+            card.setList(null);
+            cardRepo.delete(card);
+        }
+
         listRepo.delete(listEntity);
         return listMapper.convertEntityToDto(listEntity);
     }

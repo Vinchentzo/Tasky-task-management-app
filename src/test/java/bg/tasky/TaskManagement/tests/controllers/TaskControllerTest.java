@@ -2,17 +2,11 @@ package bg.tasky.TaskManagement.tests.controllers;
 
 import bg.tasky.TaskManagement.controllers.TaskController;
 import bg.tasky.TaskManagement.dtos.TaskDto;
-import bg.tasky.TaskManagement.entities.CardEntity;
-import bg.tasky.TaskManagement.entities.TaskEntity;
-import bg.tasky.TaskManagement.mappers.TaskMapper;
 import bg.tasky.TaskManagement.services.JwtService;
 import bg.tasky.TaskManagement.services.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -50,7 +44,6 @@ public class TaskControllerTest {
 
     @BeforeEach
     public void setup() {
-        // Using constructor to initialize TaskDto
         sampleTaskDto = new TaskDto("Sample Task", false);
     }
 

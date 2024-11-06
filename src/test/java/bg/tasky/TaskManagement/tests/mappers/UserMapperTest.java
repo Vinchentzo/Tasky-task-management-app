@@ -51,7 +51,6 @@ class UserMapperTest {
                 .hasNoNullFieldsOrPropertiesExcept(emptyFields);
     }
 
-    // Helper method to create UserEntity instances with setters
     private static UserEntity createUserEntity(String firstName, String lastName, String username, String password) {
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(firstName);
@@ -62,7 +61,6 @@ class UserMapperTest {
     }
 
 
-    // Method source providing parameters for convertEntityToDtoTest using createUserEntity
     private static Stream<Arguments> paramProviderForEntityToDto() {
         return Stream.of(
                 Arguments.of(

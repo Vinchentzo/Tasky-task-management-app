@@ -1,7 +1,6 @@
 package bg.tasky.TaskManagement.controllers;
 
 import bg.tasky.TaskManagement.dtos.CardDto;
-import bg.tasky.TaskManagement.dtos.ListDto;
 import bg.tasky.TaskManagement.services.CardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
